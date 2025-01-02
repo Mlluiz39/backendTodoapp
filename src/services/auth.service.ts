@@ -24,7 +24,18 @@ export class AuthService {
       throw new Error('Invalid credentials')
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, 'supersecretkey')
+    const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, 'supersecretkey')
     return token
+  }
+
+  async users() {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    })
+    return users
   }
 }

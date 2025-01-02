@@ -30,4 +30,9 @@ export class AuthController {
       reply.code(401).send({ error: 'Invalid credentials' })
     }
   }
+
+  async users(request: FastifyRequest, reply: FastifyReply) {
+    const users = await authService.users()
+    reply.send(users)
+  }
 }
