@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service'
 
 const authService = new AuthService()
 
-export class AuthController {
+export class UserController {
   async register(request: FastifyRequest, reply: FastifyReply) {
     const { name, email, password } = request.body as {
       name: string
@@ -14,7 +14,7 @@ export class AuthController {
       const user = await authService.register({ name, email, password })
       reply.code(201).send({ id: user.id, email: user.email })
     } catch (error) {
-      reply.code(400).send({ error: 'Email already exists' })
+      reply.code(400).send({ error: 'Email já cadastrado !!!' })
     }
   }
 
@@ -24,10 +24,10 @@ export class AuthController {
       password: string
     }
     try {
-      const token = await authService.login(email, password)
-      reply.send({ token })
+      const result = await authService.login(email, password)
+      reply.send({ result })
     } catch (error) {
-      reply.code(401).send({ error: 'Invalid credentials' })
+      reply.code(401).send({ message: 'Credenciais inválidas' })
     }
   }
 
