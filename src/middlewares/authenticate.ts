@@ -1,12 +1,12 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { JwtPayload } from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken'
 
 declare module 'fastify' {
   interface FastifyRequest {
-    user?: string | JwtPayload;
+    user?: string | JwtPayload
   }
 }
-import jwt from 'jsonwebtoken'
 
 export const authenticate = async (
   request: FastifyRequest,
